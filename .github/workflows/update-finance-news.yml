@@ -2,8 +2,8 @@ name: Update Finance News
 
 on:
   schedule:
-    # Run every day at 11:00 UTC (which is 19:00 Beijing time)
-    - cron: '0 11 * * *'
+    # Run every hour from 0:00 to 9:00 UTC (which is 8:00 to 17:00 Beijing time)
+    - cron: '0 0-9 * * *'
   workflow_dispatch: {}  # Allows manual triggering
 
 permissions:
@@ -34,7 +34,8 @@ jobs:
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
           git add index.html
-          git commit -m 'Update finance news'
+          git add data/
+          git commit -m 'Update finance news and data' || echo "No changes to commit"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
