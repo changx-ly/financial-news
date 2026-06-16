@@ -93,7 +93,7 @@ class NewsFetcher:
                     
                     # 获取新闻详情作为摘要
                     try:
-                        detail = cls._get_news_detail(link)
+                        detail, publish_time = cls._get_news_detail(link)
                     except Exception as e:
                         logger.error(f"获取新闻详情失败 {link}: {str(e)}")
                         continue
@@ -154,7 +154,7 @@ class NewsFetcher:
                             'link': link,
                             'source': '东方财富网',
                             'detail': detail,  # 完整显示摘要，不加...
-                            'publish_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                            'publish_time': publish_time
                         })
                         
                         logger.info(f"添加新闻: {title}")
@@ -214,7 +214,7 @@ class NewsFetcher:
                     if any(keyword in title for keyword in finance_keywords):
                         # 只使用爬取的摘要，不生成
                         try:
-                            detail = cls._get_news_detail(link)
+                            detail, publish_time = cls._get_news_detail(link)
                         except Exception as e:
                             logger.error(f"获取新浪财经新闻详情失败 {link}: {str(e)}")
                             continue
@@ -243,7 +243,7 @@ class NewsFetcher:
                                 'link': link,
                                 'source': '新浪财经',
                                 'detail': detail,  # 完整显示摘要，不加...
-                                'publish_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                                'publish_time': publish_time
                             })
                             
                             logger.info(f"添加新闻: {title}")
@@ -349,10 +349,16 @@ class NewsFetcher:
         return enhanced_content
     
     @classmethod
-    def _get_news_detail(cls, url: str) -> str:
+    def _get_news_detail(cls, url: str) -> Tuple[str, str]:
         """
         获取新闻详情，并控制在150-400字之间
+        同时提取新闻发布时间
+        
+        Returns:
+            Tuple[str, str]: (content, publish_time)
         """
+        publish_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 默认值
+        
         try:
             cls._ensure_request_interval()
             response = requests.get(url, headers=cls.DEFAULT_HEADERS, timeout=10)
@@ -368,6 +374,50 @@ class NewsFetcher:
                     response.encoding = 'gbk'
             
             soup = BeautifulSoup(response.text, 'html.parser')
+            
+            # 提取发布时间 - 多种常见的选择器
+            time_selectors = [
+                ('meta', {'property': 'article:published_time'}),
+                ('meta', {'name': 'publish-time'}),
+                ('meta', {'name': 'publishdate'}),
+                ('meta', {'name': 'date'}),
+                ('meta', {'itemprop': 'datePublished'}),
+                ('time', {'datetime': True}),
+                ('span', {'class': re.compile(r'(time|date|publish-time|pub-time)', re.I)}),
+                ('div', {'class': re.compile(r'(time|date|publish-time|pub-time)', re.I)}),
+                ('p', {'class': re.compile(r'(time|date|publish-time|pub-time)', re.I)}),
+            ]
+            
+            for tag, attrs in time_selectors:
+                time_elem = soup.find(tag, attrs)
+                if time_elem:
+                    # 尝试从多个属性获取时间
+                    time_value = (
+                        time_elem.get('content') or
+                        time_elem.get('datetime') or
+                        time_elem.get_text(strip=True)
+                    )
+                    if time_value:
+                        # 清理时间字符串，提取日期和时间部分
+                        time_value = str(time_value).strip()
+                        # 使用正则提取标准格式的时间
+                        time_match = re.search(r'(\d{4}[-/年]\d{1,2}[-/月]\d{1,2}[日\s]*(?:上午|下午)?\d{1,2}[时:]\d{1,2}(?:[分:]\d{1,2})?)', time_value)
+                        if not time_match:
+                            time_match = re.search(r'(\d{4}[-/]\d{1,2}[-/]\d{1,2}\s+\d{1,2}:\d{1,2})', time_value)
+                        if not time_match:
+                            time_match = re.search(r'(\d{4}[-/]\d{1,2}[-/]\d{1,2})', time_value)
+                        
+                        if time_match:
+                            publish_time = time_match.group(1)
+                            # 统一格式：YYYY-MM-DD HH:MM:SS
+                            publish_time = publish_time.replace('年', '-').replace('月', '-').replace('日', '')
+                            publish_time = publish_time.replace('上午', ' ').replace('下午', ' ')
+                            # 如果没有秒数，添加默认秒数
+                            if len(publish_time) <= 10:
+                                publish_time += ' 00:00:00'
+                            elif len(publish_time) <= 16:
+                                publish_time += ':00'
+                            break
             
             # 提取正文内容
             content = ''
@@ -419,7 +469,7 @@ class NewsFetcher:
             # 控制摘要长度在150-400字之间
             if len(content) < 150:
                 # 如果内容太短，返回原内容
-                return content
+                return content, publish_time
             elif len(content) > 400:
                 # 如果内容太长，截取400字并确保句子完整
                 content = content[:400]
@@ -429,13 +479,13 @@ class NewsFetcher:
                         content = content[:i+1]
                         break
                 # 如果没有找到合适的结束符，直接截取400字
-                return content[:400]
+                return content[:400], publish_time
             else:
                 # 内容长度合适，直接返回
-                return content
+                return content, publish_time
         except Exception as e:
             logger.error(f"获取新闻详情失败 {url}: {str(e)}")
-            return ""
+            return "", datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     @classmethod
     def fetch_nbd_news(cls, count: int = 20) -> List[Dict[str, Any]]:
@@ -471,7 +521,7 @@ class NewsFetcher:
                 fund_keywords = ['基金', 'ETF', '股票', '金融', '市场', '投资', '理财']
                 if any(keyword in title for keyword in fund_keywords):
                     # 只使用爬取的摘要，不生成
-                    detail = cls._get_news_detail(href)
+                    detail, publish_time = cls._get_news_detail(href)
                     
                     # 确保摘要内容是真实爬取的，不生成
                     if not detail or len(detail) < 50:  # 降低长度要求，确保使用真实内容
@@ -502,7 +552,7 @@ class NewsFetcher:
                             'link': href,
                             'source': '每日经济新闻',
                             'detail': detail,  # 完整显示摘要，不加...
-                            'publish_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                            'publish_time': publish_time
                         })
                         
                         logger.info(f"添加新闻: {title}")
