@@ -54,8 +54,12 @@ class DataSaver:
                 
             # 生成文件名: platform_YYYYMMDD_HHMMSS.json
             timestamp = now.strftime('%Y%m%d_%H%M%S')
-            filename = f"{platform}_{timestamp}.json"
+            filename2 = f"{platform}_{timestamp}.json"
+            # 生成文件名: platform_YYYYMMDD.json (固定文件名，每次更新替换)
+            date_str = now.strftime('%Y%m%d')
+            filename = f"{platform}_{date_str}.json"
             filepath = os.path.join(base_dir, filename)
+            filepath2 = os.path.join(base_dir, filename2)
             
             # 构建保存的数据结构
             data_to_save = {
@@ -67,6 +71,9 @@ class DataSaver:
             
             # 保存到JSON文件
             with open(filepath, 'w', encoding='utf-8') as f:
+                json.dump(data_to_save, f, ensure_ascii=False, indent=2)
+            
+            with open(filepath2, 'w', encoding='utf-8') as f:
                 json.dump(data_to_save, f, ensure_ascii=False, indent=2)
             
             logger.info(f"保存 {platform} 新闻到: {filepath}")
