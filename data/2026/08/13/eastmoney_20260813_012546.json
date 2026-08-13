@@ -1,0 +1,42 @@
+{
+  "platform": "eastmoney",
+  "fetch_time": "2026-08-13 01:25:46",
+  "count": 5,
+  "news": [
+    {
+      "title": "DeepSeek V4 Pro正式版来了！",
+      "link": "https://finance.eastmoney.com/a/202608133839731078.html",
+      "source": "东方财富网",
+      "detail": "DeepSeek V4 Pro 正式版已经更新至API，调用模型名不变。新版本增强了Agent能力，支持Responses API和Codex接入。 从目前官方公布的信息来看，DeepSeek V4 Pro支持1M上下文长度，最大输出长度达到384K Token，同时支持非思考模式和思考模式，其中思考模式默认开启。 根据DeepSeek官方公布的评测结果，DeepSeek V4 Pro正式版模型在 HLE、Terminal Bench、Cybergym、DeepSWE等Agent能力超过Anthropic的Claude Opus 4.8，逼近Anthropic 6月发布的模型Fable 5 ，甚至有些榜单实现反超。 更值得关注的还是价格。根据官方页面，DeepSeek V4 Pro 价格尚未调整，当前每百万Token的价格与预览版保持一致：缓存命中输入 0.",
+      "publish_time": "2026-08-13 01:23:08"
+    },
+    {
+      "title": "DeepSeek V4 Pro大幅增强Agent能力",
+      "link": "https://finance.eastmoney.com/a/202608133839555648.html",
+      "source": "东方财富网",
+      "detail": "DeepSeek V4 Pro 正式版已经更新至API，调用模型名不变。新版本大幅增强了 Agent 能力，支持 Responses API 和 Codex 接入。API文档显示，V4 Pro 正式版定价为3元/百万Token输入、6元/百万Token输出，缓存命中输入为0.025元/百万Token。 DeepSeek V4 Pro 正式版基准测试显示，其在终端 Agent 测试Terminal Bench的得分为87.9分，逼近Fable 5的88.0分。在AI 安全智能体评测基准CyberGym、以及在高难度的智能体评测基准AutomationBench上，表现甚至反超Fable 5。 （文章来源：科创板日报）",
+      "publish_time": "2026-08-13 01:23:09"
+    },
+    {
+      "title": "增强Agent能力 比肩Fable 5",
+      "link": "https://finance.eastmoney.com/a/202608133839789133.html",
+      "source": "东方财富网",
+      "detail": "8月13日凌晨，DeepSeek V4 Pro正式推出，并已更新至API，模型版本为DeepSeek-V4-Pro-0813，新版本增强了Agent能力。 根据DeepSeek给出的模式测试对比成绩，与此前V4-Pro-Preview版本相比，V4-Pro-0813已经全面提升，例如在AI编程智能体基准测试DeepSWE中，得分从Preview的7.3，大幅提升至62.7，甚至超越了Claude Opus 4.8。在AI安全智能体基准测试Cybergym、智能体基准测试AutomationBench中甚至超越目前公认最强大的Claude Fable 5。 值得注意的是，DeepSeek此前已经宣布，“计划近期整体上调DeepSeek API服务的定价，预计涨幅较大，请合理安排您的使用。具体方案以正式通知为准。” （文章来源：澎湃新闻）",
+      "publish_time": "2026-08-13 01:23:10"
+    },
+    {
+      "title": "DeepSeek V4 Pro正式版来了！尚未公布调价方案",
+      "link": "https://finance.eastmoney.com/a/202608133839731078.html",
+      "source": "东方财富网",
+      "detail": "DeepSeek V4 Pro 正式版已经更新至API，调用模型名不变。新版本增强了Agent能力，支持Responses API和Codex接入。 从目前官方公布的信息来看，DeepSeek V4 Pro支持1M上下文长度，最大输出长度达到384K Token，同时支持非思考模式和思考模式，其中思考模式默认开启。 根据DeepSeek官方公布的评测结果，DeepSeek V4 Pro正式版模型在 HLE、Terminal Bench、Cybergym、DeepSWE等Agent能力超过Anthropic的Claude Opus 4.8，逼近Anthropic 6月发布的模型Fable 5 ，甚至有些榜单实现反超。 更值得关注的还是价格。根据官方页面，DeepSeek V4 Pro 价格尚未调整，当前每百万Token的价格与预览版保持一致：缓存命中输入 0.",
+      "publish_time": "2026-08-13 01:23:14"
+    },
+    {
+      "title": "美股三大指数收盘涨跌不一 AI概念股全线飙升 SK海力士涨超9%",
+      "link": "https://finance.eastmoney.com/a/202608123839428260.html",
+      "source": "东方财富网",
+      "detail": "美东时间周三，美股三大指数收盘涨跌不一，截止收盘，道指跌0.04%，纳指涨0.54%，标普500指数涨0.26%。 AI概念股飙升， 存储芯片 股方面， SK海力士 涨超9%， 闪迪 涨超5%， 西部数据 涨超3%，希捷涨超7%， 美光科技 涨超4%。 半导体 设备股方面， 应用材料 涨超4%，泛林集团涨超4%， 科磊 涨超3%。 新一代AI云服务公司方面，Nebius涨超34%，CoreWeave涨超19%。 光 通信 和光子产品公司方面，Lumentum涨超13%，Coherent涨超8%， 康宁 涨超5%。 纳斯达克 中国金龙指数收跌2.38%， 文远知行 跌超9%， 腾讯控股 （ADR）跌超5%， 网易 、 腾讯音乐 跌超3%， 阿里巴巴 跌超2%。 全球要闻 美国7月CPI同比增长3.",
+      "publish_time": "2026-08-13 01:23:34"
+    }
+  ]
+}
