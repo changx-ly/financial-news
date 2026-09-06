@@ -1,0 +1,14 @@
+{
+  "platform": "eastmoney",
+  "fetch_time": "2026-09-06 02:27:45",
+  "count": 1,
+  "news": [
+    {
+      "title": "AI周报：OpenAI发布GPT-6 Astra Manus恢复独立运营",
+      "link": "https://finance.eastmoney.com/a/202609063866058337.html",
+      "source": "东方财富网",
+      "detail": "GPT-6 Astra发布，OpenAI称AGI时代来了 当地时间9月3日，OpenAI正式发布GPT-6 Astra，并称其为“目前全球最智能、且对齐程度最高的模型”。OpenAI总裁兼联合创始人格雷格·布罗克曼称，Astra是一次代际飞跃，甚至认为未来回看这一阶段时，人们可能会把它视为AGI（通用 人工智能 ）时代的开始。从评测结果来看，这一代模型在部分领域的提升很大，例如在代表高阶数学能力的FrontierMath Tier 4上，Astra得分达到97.6%，在强调陌生环境学习和抽象推理的ARC-AGI-3上，其成绩更是从GPT-5.6 Sol的7.8%跃升至99.9%，接近满分。Astra也是OpenAI迄今规模最大的训练项目，管理层称公司使用超过10万张GPU进行了预训练。 【 点评 】虽然能力很强，但安全问题也更突出了。",
+      "publish_time": "2026-09-06 02:25:40"
+    }
+  ]
+}
